@@ -1,0 +1,7 @@
+[user]
+	email = mohamed.ragaiy.saleh@gmail.com
+	name = mox93
+[core]
+	editor = vim
+[credential]
+	helper = cache
