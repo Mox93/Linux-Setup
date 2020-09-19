@@ -40,3 +40,8 @@ sudo mv elm /usr/local/bin/
 #
 elm --help
 
+# Installing elm-format
+#
+sudo apt install npm -y
+
+npm i elm-format -y
