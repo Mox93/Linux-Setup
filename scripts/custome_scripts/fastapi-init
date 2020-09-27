@@ -1,0 +1,59 @@
+#!/bin/bash
+
+Dir=$1
+RootPath=$(pwd)
+
+echo "Creating FastAPI Project ..."
+
+# --- Create project directory ---
+mkdir "$RootPath/$Dir" || exit 1
+cd "$RootPath/$Dir"
+
+# --- Setup virtual environment ---
+python3 -m venv .venv
+source .venv/bin/activate
+
+pip install --upgrade pip
+pip install fastapi asyncpg python-dotenv gunicorn uvicorn
+pip freeze > requirements.txt
+
+# --- Create main structure ---
+mkdir -p app/{api,models,db,utils,errors}
+find ./app -type d -exec touch {}/__init__.py \;
+
+echo "POSTGRESQL_HOST=localhost
+POSTGRESQL_USER=postgres
+POSTGRESQL_PW=
+POSTGRESQL_DB=" > .env
+
+# --- Create "Hello World" app ---
+echo "# Auto-Generated Code
+from fastapi import FastAPI
+
+
+app = FastAPI()
+
+
+@app.get(\"/\")
+async def root():
+    return {\"Hello\": \"World\"}" > app/__init__.py
+
+echo "# Hello World
+Auto-generated file" > README.md
+
+# --- Add Heroku files ---
+echo "web: gunicorn -w 2 -k uvicorn.workers.UvicornWorker app:app" > Procfile
+echo "python-3.8.5" > runtime.txt
+
+# --- Setup Git ---
+git init
+echo "**/.idea
+**/.venv
+**/__pycache__
+**/.env*" > .gitignore
+git add .
+git commit -m "Initial commit"
+
+# --- Run FastAPI app ---
+uvicorn app:app --reload --port 4321
+

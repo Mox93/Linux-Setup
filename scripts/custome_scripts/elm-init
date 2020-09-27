@@ -1,0 +1,168 @@
+#!/bin/bash
+
+Dir=$1
+RootPath=$(pwd)
+
+echo "Creating Elm Project ..."
+
+# --- Create project directory ---
+mkdir "$RootPath/$Dir" || exit 1
+cd "$RootPath/$Dir"
+
+# --- Setup Elm ---
+elm init
+elm install elm/http
+elm install elm/json
+elm install elm/url
+
+echo "#!/bin/sh
+
+set -e
+
+js=\"elm.js\"
+min=\"elm.min.js\"
+
+elm make --optimize --output=\$js \$@
+
+uglifyjs \$js --compress 'pure_funcs=\"F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9\",pure_getters,keep_fargs=false,unsafe_comps,unsafe' | uglifyjs --mangle --output=\$min
+
+echo \"Compiled size:\$(cat \$js | wc -c) bytes  (\$js)\"
+echo \"Minified size:\$(cat \$min | wc -c) bytes  (\$min)\"
+echo \"Gzipped size: \$(cat \$min | gzip -c | wc -c) bytes\"" > optimize.sh
+
+echo "
+elm make src/Main.elm --output ./index/elm.js --debug
+
+#elm make src/Main.elm --output elm.js --optimize
+
+#./optimize.sh src/Main.elm" > build.sh
+
+mkdir index
+cd index/
+
+echo "<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=\"utf-8\">
+    <title>Hello World</title>
+
+    <script src=\"elm.js\"></script>
+  </head>
+
+  <body>
+    <script src=\"main.js\"></script>
+  </body>
+</html>" > index.html
+
+echo "console.log(\"Starting...\");
+
+// init elm app
+var app = Elm.Main.init();" > main.js
+
+cd ..
+
+# --- Create "Hello World" app ---
+echo "module Main exposing (..)
+
+import Browser exposing (Document, UrlRequest, application)
+import Browser.Navigation as Nav
+import Html exposing (..)
+import Html.Attributes exposing (..)
+import Url exposing (Url)
+
+
+main : Program () Model Msg
+main =
+    application
+        { init = init
+        , update = update
+        , view = view
+        , subscriptions = \_ -> Sub.none
+        , onUrlRequest = LinkClicked
+        , onUrlChange = UrlChanged
+        }
+
+
+
+-- MODEL
+
+
+type alias Model =
+    { title : String
+    , url : Url
+    , navKey : Nav.Key
+    }
+
+
+init : () -> Url -> Nav.Key -> ( Model, Cmd msg )
+init _ url navKey =
+    ( { title = \"Hello World\"
+      , url = url
+      , navKey = navKey
+      }
+    , Cmd.none
+    )
+
+
+
+-- UPDATE
+
+
+type Msg
+    = LinkClicked UrlRequest
+    | UrlChanged Url
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+    case ( msg, model ) of
+        ( LinkClicked urlRequest, _ ) ->
+            case urlRequest of
+                Browser.Internal url ->
+                    ( model, Url.toString url |> Nav.pushUrl model.navKey )
+
+                Browser.External href ->
+                    ( model, Nav.load href )
+
+        ( UrlChanged url, _ ) ->
+            ( { model | url = url }, Cmd.none )
+
+
+
+-- VIEW
+
+
+view : Model -> Document Msg
+view model =
+    { title = model.title
+    , body =
+        [ div [ style \"margin\" \"auto\", style \"text-align\" \"center\" ]
+            [ div [ style \"background-color\" \"#2F4F4F\", style \"height\" \"5vh\" ] []
+            , h1 [] [ text model.title ]
+            , p [] [ text (\"url = \" ++ Url.toString model.url) ]
+            , a [ href \"/\" ] [ text \"Home\" ]
+            , br [] []
+            , a [ href \"/anything\" ] [ text \"Anything\" ]
+
+            ]
+        ]
+    }
+" > src/Main.elm
+
+echo "# Hello World
+Auto-generated file
+" > README.md
+
+# --- Setup Git ---
+git init
+echo "**/.idea
+**/elm-stuff
+**/.env*
+" > .gitignore
+git add .
+git commit -m "Initial commit"
+
+# --- Build Elm app ---
+bash build.sh || exit 1
+elm reactor --port 4322
+
