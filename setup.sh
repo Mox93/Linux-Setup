@@ -1,11 +1,11 @@
-RootPath=$(pwd)
+DIR=$(pwd)
 
 # Updated apt index
 sudo apt update
 sudo apt -y upgrade
 
 # Git terminal config
-$RootPath/scripts/git-config.sh
+$DIR/scripts/git-config.sh
 
 # Pip
 sudo apt install python3-pip -y
@@ -35,19 +35,19 @@ sudo apt install transmission -y
 sudo apt install copyq -y
 
 # AnyDesk
-$RootPath/scripts/install-anydesk.sh
+$DIR/scripts/install-anydesk.sh
 
 # Chrome
-$RootPath/scripts/install-chrome.sh
+$DIR/scripts/install-chrome.sh
 
 # JetBrains
-$RootPath/scripts/install-jetbrains-toolbox.sh
+#$DIR/scripts/install-jetbrains-toolbox.sh
 
 # Postman
 flatpak install flathub com.getpostman.Postman -y
 
 # Inkscape
-$RootPath/scripts/install-inkscape.sh
+$DIR/scripts/install-inkscape.sh
 
 # Docker
 sudo apt-get install docker.io -y
@@ -56,10 +56,10 @@ sudo apt-get install docker.io -y
 bash -c "$(wget -q -O - https://linux.kite.com/dls/linux/current)"
 
 # Elm
-$RootPath/scripts/install-elm.sh
+$DIR/scripts/install-elm.sh
 
 # Ferdi
-$RootPath/scripts/install-ferdi.sh
+$DIR/scripts/install-ferdi.sh
 
 # Scrcpy
 sudo apt install scrcpy
@@ -74,10 +74,11 @@ sudo apt install gparted
 sudo apt install sqlitebrowser
 
 # PostgreSQL
-$RootPath/scripts/install-postgresql.sh
+$DIR/scripts/install-postgresql.sh
 
 # PgAdmin
-$RootPath/scripts/install-pgadmin4.sh
+$DIR/scripts/install-pgadmin4.sh
 
 # Custome Commands
-$RootPath/scripts/custome-commands.sh
+$DIR/scripts/custome-sctipy.sh
+
