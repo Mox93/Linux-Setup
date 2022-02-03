@@ -4,6 +4,15 @@ DIR=$(pwd)
 sudo apt update
 sudo apt -y upgrade
 
+# Fira Code Font
+sudo apt install fonts-firacode
+
+# ifconfig
+sudo apt install net-tools
+
+# cURL
+sudo apt install curl
+
 # Git terminal config
 $DIR/scripts/git-config.sh
 
@@ -11,19 +20,19 @@ $DIR/scripts/git-config.sh
 sudo apt install python3-pip -y
 
 # Python virtual enviroment
-sudo apt install python3-venv
+sudo apt install python3-venv -y
 
 # Pylint
-sudo apt install pylint
+sudo apt install pylint -y
 
 # Vim
-sudo apt install vim -y
+# sudo apt install vim -y
 
 # Vlc
 sudo apt install vlc -y
 
 # Heroku
-curl https://cli-assets.heroku.com/install.sh | sh
+# curl https://cli-assets.heroku.com/install.sh | sh
 
 # GParted
 sudo apt install gparted -y
@@ -38,47 +47,62 @@ sudo apt install copyq -y
 $DIR/scripts/install-anydesk.sh
 
 # Chrome
-$DIR/scripts/install-chrome.sh
+# $DIR/scripts/install-chrome.sh
 
 # JetBrains
-#$DIR/scripts/install-jetbrains-toolbox.sh
+# #$DIR/scripts/install-jetbrains-toolbox.sh
 
 # Postman
-flatpak install flathub com.getpostman.Postman -y
+# flatpak install flathub com.getpostman.Postman -y
 
 # Inkscape
 $DIR/scripts/install-inkscape.sh
 
 # Docker
-sudo apt-get install docker.io -y
+# sudo apt-get install docker.io -y
 
 # Kite
 bash -c "$(wget -q -O - https://linux.kite.com/dls/linux/current)"
 
 # Elm
-$DIR/scripts/install-elm.sh
+# $DIR/scripts/install-elm.sh
 
 # Ferdi
-$DIR/scripts/install-ferdi.sh
+# $DIR/scripts/install-ferdi.sh
 
 # Scrcpy
-sudo apt install scrcpy
+# sudo apt install scrcpy
 
 # Gnome tweak tool
 sudo apt install gnome-tweak-tool
 
-# GParted
-sudo apt install gparted
-
 # SQLite browser
-sudo apt install sqlitebrowser
+# sudo apt install sqlitebrowser
 
 # PostgreSQL
-$DIR/scripts/install-postgresql.sh
+# $DIR/scripts/install-postgresql.sh
 
 # PgAdmin
-$DIR/scripts/install-pgadmin4.sh
+# $DIR/scripts/install-pgadmin4.sh
 
 # Custome Commands
-$DIR/scripts/custome-sctipy.sh
+# $DIR/scripts/custome_scripts.sh
+
+# Typora
+$DIR/scriprs/install-typora.sh
+
+# Snap
+# sudo apt install snap
+
+# Figma
+sudo snap install figma-linux
+
+# Authey
+sudo snap install authy
+
+# NVM
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+
+# Cleanup
+sudo apt autoremove -y
 
