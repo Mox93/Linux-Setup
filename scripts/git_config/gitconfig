@@ -1,3 +1,4 @@
+# Global config
 [user]
 	email = mohamed.ragaiy.saleh@gmail.com
 	name = mox93
@@ -5,3 +6,8 @@
 	editor = vim
 [credential]
 	helper = cache
+
+# Scandiweb config
+[includeIf "gitdir:~/Scandiweb/"]
+	path = ~/Scandiweb/.gitconfig
+

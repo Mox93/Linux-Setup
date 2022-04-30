@@ -28,7 +28,7 @@ sudo apt install pylint -y
 # Vim
 # sudo apt install vim -y
 
-# Vlc
+# VLC
 sudo apt install vlc -y
 
 # Heroku
@@ -43,8 +43,17 @@ sudo apt install transmission -y
 # CopyQ
 sudo apt install copyq -y
 
+# VSCode
+$DIR/scripts/install-vscode.sh
+
 # AnyDesk
 $DIR/scripts/install-anydesk.sh
+
+# Tilix
+sudo apt install tilix -y
+
+# ZSH
+$DIR/scripts/install-zsh.sh
 
 # Chrome
 # $DIR/scripts/install-chrome.sh
@@ -105,4 +114,7 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 
 # Cleanup
 sudo apt autoremove -y
+
+# xClip
+sudo apt install xclip
 
