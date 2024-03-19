@@ -51,6 +51,7 @@ $DIR/scripts/install-anydesk.sh
 
 # Tilix
 sudo apt install tilix -y
+# sudo update-alternatives --config x-terminal-emulator
 
 # ZSH
 $DIR/scripts/install-zsh.sh
@@ -59,7 +60,7 @@ $DIR/scripts/install-zsh.sh
 # $DIR/scripts/install-chrome.sh
 
 # JetBrains
-# #$DIR/scripts/install-jetbrains-toolbox.sh
+# $DIR/scripts/install-jetbrains-toolbox.sh
 
 # Postman
 # flatpak install flathub com.getpostman.Postman -y
